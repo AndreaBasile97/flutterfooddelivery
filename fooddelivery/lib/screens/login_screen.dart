@@ -1,36 +1,53 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-// import 'package:fooddelivery/main.dart';
-//import 'package:flutterfire_samples/res/custom_colors.dart';
-//import 'package:flutterfire_samples/widgets/login_form.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:fooddelivery/screens/google_sign_in_button.dart';
 
-class LoginScreen extends StatefulWidget {
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  // final FocusNode _uidFocusNode = FocusNode();
-
-  Future<FirebaseApp> _initializeFirebase() async {
-    FirebaseApp firebaseApp = await Firebase.initializeApp();
-
-    return firebaseApp;
-  }
-
+class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    FutureBuilder(
-      future: _initializeFirebase(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error initializing Firebase');
-        } else if (snapshot.connectionState == ConnectionState.done) {
-          return Container(color: Colors.blue);
-        }
-        return Container(color: Colors.pink);
-      },
-    );
-    return Container(color: Colors.yellow);
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Bro delivery"),
+        ),
+        body: Center(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
+              Widget>[
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Text("Bro Delivery - Login",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      fontFamily: 'Roboto')),
+            ),
+            Padding(
+                padding: EdgeInsets.all(10.0),
+                child: SignInButton(
+                  Buttons.Email,
+                  text: "Sign up with Email",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  },
+                )),
+            Padding(padding: EdgeInsets.all(10.0), child: GoogleSignInButton()),
+            Padding(
+                padding: EdgeInsets.all(10.0),
+                child: GestureDetector(
+                    child: Text("Log In Using Email",
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue)),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      );
+                    }))
+          ]),
+        ));
   }
 }
