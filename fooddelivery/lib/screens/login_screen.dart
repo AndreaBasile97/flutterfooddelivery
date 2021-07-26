@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter_signin_button/button_list.dart';
-import 'package:fooddelivery/screens/google_sign_in_button.dart';
+import 'package:fooddelivery/interactive/google_sign_in_button.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Bro delivery"),
-        ),
         body: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
-              Widget>[
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
             Padding(
               padding: EdgeInsets.all(10.0),
               child: Text("Bro Delivery - Login",
@@ -29,7 +27,7 @@ class LoginScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      MaterialPageRoute(builder: (context) => Scaffold()),
                     );
                   },
                 )),
@@ -44,10 +42,10 @@ class LoginScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        MaterialPageRoute(builder: (context) => Scaffold()),
                       );
                     }))
           ]),
-        ));
+    ));
   }
 }

@@ -1,4 +1,4 @@
-# fooddelivery
+# Brousers - Delivery
 
 A new Flutter project.
 
@@ -14,3 +14,10 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Cartelle
+Le cartelle sono divise in tre tipologie
+
+- screens: Contiene la grafica delle schermate (lato front-end).
+- interactive: Contiene gli elementi delle schermate che fanno da tramite tra il front-end e il backend.
+- backend: logica server.
