@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/screens/home.dart';
 
 class Master extends StatefulWidget {
   const Master({Key key}) : super(key: key);
@@ -11,11 +12,8 @@ class _Master extends State<Master> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+  static List<Widget> _widgetOptions = <Widget>[
+    Home(),
     Text(
       'Index 1: Business',
       style: optionStyle,
@@ -35,9 +33,7 @@ class _Master extends State<Master> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Pagina principale"),
-      ),
+      body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
