@@ -15,11 +15,11 @@ class _Master extends State<Master> {
   static List<Widget> _widgetOptions = <Widget>[
     Home(),
     Text(
-      'Index 1: Business',
+      'Carrello',
       style: optionStyle,
     ),
     Text(
-      'Index 2: School',
+      'Profilo',
       style: optionStyle,
     ),
   ];
