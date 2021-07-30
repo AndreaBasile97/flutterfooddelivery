@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter_signin_button/button_list.dart';
+import 'package:fooddelivery/backend/authentication.dart';
 import 'package:fooddelivery/interactive/google_sign_in_button.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -23,12 +24,11 @@ class LoginScreen extends StatelessWidget {
                 padding: EdgeInsets.all(10.0),
                 child: SignInButton(
                   Buttons.Email,
-                  text: "Sign up with Email",
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Scaffold()),
-                    );
+                  text: "Registrati con email",
+                  onPressed: () async {
+                    // cliccando registra automaticamente un utente mockato
+                    // TODO: portare l'utente su uno screen con form di registrazione
+                    await Authentication.signInWithEmail(context: context);
                   },
                 )),
             Padding(padding: EdgeInsets.all(10.0), child: GoogleSignInButton()),
