@@ -35,6 +35,8 @@ class _Master extends State<Master> {
     return Scaffold(
       body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
