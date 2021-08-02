@@ -4,12 +4,11 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
-  static void signInWithEmail(String user_email, String user_password,
+  static void signInWithEmail(String useremail, String userpassword,
       {BuildContext context}) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: user_email, password: user_password);
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: useremail, password: userpassword);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');

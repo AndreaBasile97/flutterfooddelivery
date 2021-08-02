@@ -13,14 +13,10 @@ class RegistrationForm extends StatefulWidget {
 //State dello StatefulWidget
 class _RegistrationForm extends State<RegistrationForm> {
   //Campi che comporranno lo stato del widget
-  final GlobalKey<FormFieldState<String>> _passwordField =
-      GlobalKey<FormFieldState<String>>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool _obscureText = true;
-  String _email;
-  //String _phoneNumber;
-  String _password;
+
   //Contenuto del widget
   @override
   Widget build(BuildContext context) {
