@@ -12,9 +12,9 @@ class MyApp extends StatelessWidget {
       title: 'FlutterFire Samples',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
-        brightness: Brightness.dark,
-      ),
+          primarySwatch: Colors.indigo,
+          brightness: Brightness.dark,
+          fontFamily: 'Quicksand'),
       home: LoginScreen(),
     );
   }

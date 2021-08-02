@@ -50,7 +50,14 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  fonts:
+    - family: Quicksand
+      fonts:
+        - asset: asset/fonts/quicksand/Quicksand-Regular.ttf
+        - asset: asset/fonts/quicksand/Quicksand-Bold.ttf
+        - asset: asset/fonts/quicksand/Quicksand-Medium.ttf
+        - asset: asset/fonts/quicksand/Quicksand-SemiBold.ttf
+        - asset: asset/fonts/quicksand/Quicksand-Light.ttf
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

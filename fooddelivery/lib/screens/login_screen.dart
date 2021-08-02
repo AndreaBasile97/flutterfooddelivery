@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter_signin_button/button_list.dart';
-import 'package:fooddelivery/backend/authentication.dart';
+// import 'package:fooddelivery/backend/authentication.dart';
 import 'package:fooddelivery/interactive/google_sign_in_button.dart';
+import 'package:fooddelivery/screens/registration_form.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -25,10 +26,14 @@ class LoginScreen extends StatelessWidget {
                 child: SignInButton(
                   Buttons.Email,
                   text: "Registrati con email",
-                  onPressed: () async {
+                  onPressed: () {
                     // cliccando registra automaticamente un utente mockato
-                    // TODO: portare l'utente su uno screen con form di registrazione
-                    await Authentication.signInWithEmail(context: context);
+                    // await Authentication.signInWithEmail(context: context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RegistrationForm()),
+                    );
                   },
                 )),
             Padding(padding: EdgeInsets.all(10.0), child: GoogleSignInButton()),

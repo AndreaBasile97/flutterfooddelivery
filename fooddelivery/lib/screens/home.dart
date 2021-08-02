@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fooddelivery/interactive/floating_search_bar.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -10,7 +9,7 @@ class Home extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          buildFloatingSearchBar(),
+          Scaffold(),
         ],
       ),
     );
