@@ -18,6 +18,10 @@ class Authentication {
     } catch (e) {
       print(e);
     }
+    User user = FirebaseAuth.instance.currentUser;
+    if (!user.emailVerified) {
+      user.sendEmailVerification();
+    }
   }
 
   static Future<User> signInWithGoogle({BuildContext context}) async {
