@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter_signin_button/button_list.dart';
-// import 'package:fooddelivery/backend/authentication.dart';
 import 'package:fooddelivery/interactive/google_sign_in_button.dart';
+import 'package:fooddelivery/screens/login_form.dart';
 import 'package:fooddelivery/screens/registration_form.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -14,17 +14,30 @@ class LoginScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
+                padding: EdgeInsets.all(10.0),
+                child: SignInButton(
+                  Buttons.Email,
+                  padding: EdgeInsets.only(top: 16, bottom: 16),
+                  text: "Login con email",
+                  onPressed: () {
+                    // cliccando registra automaticamente un utente mockato
+                    // await Authentication.signInWithEmail(context: context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginForm()),
+                    );
+                  },
+                )),
+            Padding(
               padding: EdgeInsets.all(10.0),
               child: Text("Bro Delivery - Login",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      fontFamily: 'Roboto')),
+                  style: TextStyle(fontWeight: FontWeight.bold)),
             ),
             Padding(
                 padding: EdgeInsets.all(10.0),
                 child: SignInButton(
                   Buttons.Email,
+                  padding: EdgeInsets.only(top: 16, bottom: 16),
                   text: "Registrati con email",
                   onPressed: () {
                     // cliccando registra automaticamente un utente mockato

@@ -1,9 +1,33 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:fooddelivery/screens/master.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
+  static void logInWithEmail(
+      String useremail, String userpassword, BuildContext context) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: useremail, password: userpassword)
+          .then((value) {
+        User user = FirebaseAuth.instance.currentUser;
+        if (user.emailVerified) {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => Master()));
+        } else {
+          print("Mail non verificata");
+        }
+      });
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('Account non trovato.');
+      } else if (e.code == 'wrong-password') {
+        print('Password errata.');
+      }
+    }
+  }
+
   static void signInWithEmail(String useremail, String userpassword,
       {BuildContext context}) async {
     try {
