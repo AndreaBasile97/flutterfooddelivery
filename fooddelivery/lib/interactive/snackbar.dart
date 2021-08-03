@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-ScaffoldFeatureController errorSnackBar(BuildContext context) {
+ScaffoldFeatureController snackBar(
+    BuildContext context, String text, IconData icon, Color color) {
   return ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Row(
         children: <Widget>[
           Icon(
-            Icons.error_outline,
-            color: Colors.red,
+            icon,
+            color: color,
           ),
-          Text("Autenticazione fallita!"),
+          Text(text),
         ],
       ),
     ),

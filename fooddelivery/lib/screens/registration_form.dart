@@ -89,7 +89,7 @@ class _RegistrationForm extends State<RegistrationForm> {
             ElevatedButton(
               onPressed: () {
                 Authentication.signInWithEmail(
-                    emailController.text, passwordController.text);
+                    emailController.text, passwordController.text, context);
               },
               child: const Text('Registrati'),
             ),

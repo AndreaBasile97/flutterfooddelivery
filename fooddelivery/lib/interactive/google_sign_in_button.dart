@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:fooddelivery/backend/authentication.dart';
-import 'package:fooddelivery/interactive/error_snackbar.dart';
+import 'package:fooddelivery/interactive/snackbar.dart';
 import 'package:fooddelivery/screens/master.dart';
 
 class GoogleSignInButton extends StatefulWidget {
@@ -31,7 +31,8 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
             ),
           );
         } else {
-          return errorSnackBar(context);
+          return snackBar(
+              context, "Autenticazione Fallita", Icons.error, Colors.red);
         }
       },
     );
