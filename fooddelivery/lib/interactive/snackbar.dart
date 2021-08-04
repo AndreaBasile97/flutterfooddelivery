@@ -10,7 +10,7 @@ ScaffoldFeatureController snackBar(
             icon,
             color: color,
           ),
-          Text(text),
+          Flexible(child: Text(text)),
         ],
       ),
     ),

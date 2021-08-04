@@ -52,11 +52,8 @@ class Authentication {
     User user = FirebaseAuth.instance.currentUser;
     if (!user.emailVerified) {
       user.sendEmailVerification();
-      return snackBar(
-          context,
-          "Registrazione effettuata con successo, effettua la verifica",
-          Icons.done,
-          Colors.green);
+      return snackBar(context, "Ti abbiamo inviato una email di verifica",
+          Icons.done, Colors.green);
     }
     return null;
   }

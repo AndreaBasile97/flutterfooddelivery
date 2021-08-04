@@ -117,7 +117,7 @@ class _RegistrationForm extends State<RegistrationForm> {
                           isLoading = false;
                         });
                       },
-                      child: const Text('Login'),
+                      child: const Text('Registrati'),
                     )
                   : Center(child: CircularProgressIndicator())
             ],
