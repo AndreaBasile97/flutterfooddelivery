@@ -16,7 +16,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   Widget build(BuildContext context) {
     return SignInButton(
       Buttons.Google,
-      text: "Registrati con Google",
+      text: "Login con Google",
       onPressed: () async {
         setState(() {});
 

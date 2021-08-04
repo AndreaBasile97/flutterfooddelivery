@@ -41,8 +41,8 @@ class Authentication {
           email: useremail, password: userpassword);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-        //TODO: usa i validator
+        return snackBar(
+            context, "Password troppo debole", Icons.error, Colors.red);
       } else if (e.code == 'email-already-in-use') {
         return snackBar(context, "Email già usata", Icons.error, Colors.red);
       }

@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fooddelivery/backend/authentication.dart';
 // import 'package:flutter/services.dart';
@@ -16,7 +17,7 @@ class _LoginForm extends State<LoginForm> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool _obscureText = true;
-
+  bool isLoading = false;
   //Contenuto del widget
   @override
   Widget build(BuildContext context) {
@@ -29,8 +30,12 @@ class _LoginForm extends State<LoginForm> {
               height: 24.0,
             ),
             TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               style: TextStyle(fontSize: 15),
               controller: emailController,
+              validator: (value) => EmailValidator.validate(value)
+                  ? null
+                  : "Inserisci una mail valida",
               decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
                   filled: true,
@@ -64,13 +69,21 @@ class _LoginForm extends State<LoginForm> {
             const SizedBox(
               height: 24,
             ),
-            ElevatedButton(
-              onPressed: () {
-                Authentication.logInWithEmail(
-                    emailController.text, passwordController.text, context);
-              },
-              child: const Text('Login'),
-            ),
+            !isLoading
+                ? ElevatedButton(
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      await Authentication.logInWithEmail(emailController.text,
+                          passwordController.text, context);
+                      setState(() {
+                        isLoading = false;
+                      });
+                    },
+                    child: const Text('Login'),
+                  )
+                : Center(child: CircularProgressIndicator())
           ],
         ),
       ),
