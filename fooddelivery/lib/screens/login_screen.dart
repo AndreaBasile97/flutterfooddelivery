@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter_signin_button/button_list.dart';
+import 'package:fooddelivery/backend/authentication.dart';
 import 'package:fooddelivery/interactive/google_sign_in_button.dart';
 import 'package:fooddelivery/screens/login_form.dart';
 import 'package:fooddelivery/screens/registration_form.dart';
@@ -58,7 +59,9 @@ class LoginScreen extends StatelessWidget {
               Buttons.Facebook,
               text: "Login con Facebook",
               padding: EdgeInsets.only(top: 16, bottom: 16),
-              onPressed: () {},
+              onPressed: () async {
+                Authentication.signInWithFacebook();
+              },
             ))
       ]),
     ));

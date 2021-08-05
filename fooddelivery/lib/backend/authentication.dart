@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:fooddelivery/backend/resource.dart';
 import 'package:fooddelivery/interactive/snackbar.dart';
 import 'package:fooddelivery/screens/master.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class Authentication {
   static Future<ScaffoldFeatureController> logInWithEmail(
@@ -37,6 +40,7 @@ class Authentication {
   static Future<ScaffoldFeatureController> signInWithEmail(
       String useremail, String userpassword, BuildContext context) async {
     try {
+      await Firebase.initializeApp();
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: useremail, password: userpassword);
     } on FirebaseAuthException catch (e) {
@@ -59,6 +63,7 @@ class Authentication {
   }
 
   static Future<User> signInWithGoogle({BuildContext context}) async {
+    await Firebase.initializeApp();
     FirebaseAuth auth = FirebaseAuth.instance;
     User user;
 
@@ -106,5 +111,27 @@ class Authentication {
     }
 
     return user;
+  }
+
+  static Future<Resource> signInWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      switch (result.status) {
+        case LoginStatus.success:
+          final AuthCredential facebookCredential =
+              FacebookAuthProvider.credential(result.accessToken.token);
+          final userCredential = await FirebaseAuth.instance
+              .signInWithCredential(facebookCredential);
+          return Resource(status: Status.Success);
+        case LoginStatus.cancelled:
+          return Resource(status: Status.Cancelled);
+        case LoginStatus.failed:
+          return Resource(status: Status.Error);
+        default:
+          return null;
+      }
+    } on FirebaseAuthException catch (e) {
+      throw e;
+    }
   }
 }
