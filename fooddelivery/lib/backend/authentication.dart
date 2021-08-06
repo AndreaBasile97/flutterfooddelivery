@@ -11,6 +11,7 @@ class Authentication {
   static Future<ScaffoldFeatureController> logInWithEmail(
       String useremail, String userpassword, BuildContext context) async {
     try {
+      await Firebase.initializeApp();
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: useremail, password: userpassword)
           .then((value) {
