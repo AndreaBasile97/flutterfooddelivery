@@ -60,7 +60,7 @@ class LoginScreen extends StatelessWidget {
               text: "Login con Facebook",
               padding: EdgeInsets.only(top: 16, bottom: 16),
               onPressed: () async {
-                Authentication.signInWithFacebook();
+                Authentication.signInWithFacebook(context);
               },
             ))
       ]),
