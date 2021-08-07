@@ -17,6 +17,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
     return SignInButton(
       Buttons.Google,
       text: "Login con Google",
+      padding: EdgeInsets.only(top: 8, bottom: 8),
       onPressed: () async {
         setState(() {});
 

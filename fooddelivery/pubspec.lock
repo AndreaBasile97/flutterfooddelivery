@@ -7,7 +7,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.6.1"
+    version: "2.5.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -132,27 +132,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_facebook_auth:
+  flutter_facebook_login:
     dependency: "direct main"
     description:
-      name: flutter_facebook_auth
+      name: flutter_facebook_login
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.5.0"
-  flutter_facebook_auth_platform_interface:
-    dependency: transitive
-    description:
-      name: flutter_facebook_auth_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.7.0"
-  flutter_facebook_auth_web:
-    dependency: transitive
-    description:
-      name: flutter_facebook_auth_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.6.0+2"
+    version: "3.0.0"
   flutter_signin_button:
     dependency: "direct main"
     description:
@@ -198,6 +184,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.0+1"
+  http:
+    dependency: "direct main"
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.3"
   http_parser:
     dependency: transitive
     description:
@@ -247,6 +240,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+  pedantic:
+    dependency: transitive
+    description:
+      name: pedantic
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.11.1"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -272,7 +272,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.1"
+    version: "1.8.0"
   splashscreen:
     dependency: "direct main"
     description:
@@ -314,7 +314,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0"
+    version: "0.2.19"
   typed_data:
     dependency: transitive
     description:

@@ -53,16 +53,16 @@ class LoginScreen extends StatelessWidget {
               },
             )),
         Padding(padding: EdgeInsets.all(10.0), child: GoogleSignInButton()),
-        // Padding(
-        //     padding: EdgeInsets.all(10.0),
-        //     child: SignInButton(
-        //       Buttons.Facebook,
-        //       text: "Login con Facebook",
-        //       padding: EdgeInsets.only(top: 16, bottom: 16),
-        //       onPressed: () async {
-        //         Authentication.signInWithFacebook();
-        //       },
-        //     ))
+        Padding(
+            padding: EdgeInsets.all(10.0),
+            child: SignInButton(
+              Buttons.Facebook,
+              text: "Login con Facebook",
+              padding: EdgeInsets.only(top: 16, bottom: 16),
+              onPressed: () async {
+                Authentication.signInWithFacebook();
+              },
+            ))
       ]),
     ));
   }
