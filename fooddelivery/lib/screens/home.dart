@@ -21,9 +21,11 @@ class Home extends StatelessWidget {
 }
 
 class Entry {
-  const Entry(this.title, this.description, [this.children = const <Entry>[]]);
+  const Entry(this.title, this.description, this.price,
+      [this.children = const <Entry>[]]);
   final String title;
   final String description;
+  final String price;
   final List<Entry> children;
 }
 
@@ -32,41 +34,41 @@ const List<Entry> data = <Entry>[
   Entry(
     'Panini',
     '',
+    '',
     <Entry>[
       Entry(
         'Panini di Mare',
         '',
+        '',
         <Entry>[
-          Entry('Panino al salmone', 'Salmone, Maionese, Verdure'),
-          Entry('Panino al tonno', 'Salmone, Maionese, Verdure'),
+          Entry('Panino al salmone', 'Salmone, Maionese, Verdure', '5€'),
+          Entry('Panino al tonno', 'Salmone, Maionese, Verdure', '2€'),
         ],
       ),
-      Entry('Panino di terra', '', <Entry>[
-        Entry('Panino con angus', 'Angus, Salse e Insalata'),
-        Entry('Panino con pollo', 'Pollo, Salse e Insalata'),
+      Entry('Panini di terra', '', '', <Entry>[
+        Entry('Panino con angus', 'Angus, Salse e Insalata', '4€'),
+        Entry('Panino con pollo', 'Pollo, Salse e Insalata', '3€'),
       ]),
     ],
   ),
   Entry(
-    'Pizze',
+    'Panini',
+    '',
     '',
     <Entry>[
       Entry(
-        'Pizze rosse',
+        'Panini di Mare',
+        '',
         '',
         <Entry>[
-          Entry('Pizza Margherita', 'Mozzarella, Pomodoro, Olio e Basilico'),
-          Entry('Pizza Marinara', 'Pomodoro, Olio, Basilico e Aglio'),
+          Entry('Panino al salmone', 'Salmone, Maionese, Verdure', '5€'),
+          Entry('Panino al tonno', 'Salmone, Maionese, Verdure', '2€'),
         ],
       ),
-      Entry(
-        'Pizze speciali',
-        '',
-        <Entry>[
-          Entry('Pizza X', 'Mozzarella, Pomodoro, Olio e Basilico'),
-          Entry('Pizza Y', 'Pomodoro, Olio, Basilico e Aglio'),
-        ],
-      ),
+      Entry('Panini di terra', '', '', <Entry>[
+        Entry('Panino con angus', 'Angus, Salse e Insalata', '4€'),
+        Entry('Panino con pollo', 'Pollo, Salse e Insalata', '3€'),
+      ]),
     ],
   ),
 ];
@@ -81,13 +83,28 @@ class EntryItem extends StatelessWidget {
   Widget _buildTiles(Entry root) {
     if (root.children.isEmpty)
       return ListTile(
-        title: Text(root.title),
-        subtitle: Text(root.description),
-      );
+          title: Text(root.title),
+          isThreeLine: true,
+          subtitle: Text(root.description + '\n' + root.price),
+          trailing: Wrap(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.remove_circle),
+                tooltip: 'Rimuovi dal carrello',
+                onPressed: () {},
+              ),
+              Text('0'),
+              IconButton(
+                icon: const Icon(Icons.add_circle),
+                tooltip: 'Aggiungi al carrello',
+                onPressed: () {},
+              ),
+            ],
+          ));
     return ExpansionTile(
       key: PageStorageKey<Entry>(root),
       title: Text(root.title),
-      subtitle: Text(root.description),
+      subtitle: Text(root.description + '\n' + root.price),
       children: root.children.map(_buildTiles).toList(),
     );
   }

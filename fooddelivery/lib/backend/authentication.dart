@@ -122,10 +122,11 @@ class Authentication {
     if (result.status == FacebookLoginStatus.loggedIn) {
       final String token = result.accessToken.token;
       final response = await http.get(Uri.parse(
-          'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}'));
+          'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=$token'));
       final profile = jsonDecode(response.body);
       print(profile);
-      return profile;
+      return snackBar(
+          context, "Accesso eseguito con successo!", Icons.done, Colors.green);
     } else {
       return snackBar(
           context,
