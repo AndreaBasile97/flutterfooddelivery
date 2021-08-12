@@ -17,6 +17,8 @@ class _RegistrationForm extends State<RegistrationForm> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  bool _mailFlag = false;
+  bool _confirmPassFlag = false;
   bool _obscureText = true;
   bool isLoading = false;
   //Contenuto del widget
@@ -36,9 +38,23 @@ class _RegistrationForm extends State<RegistrationForm> {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 style: TextStyle(fontSize: 15),
                 controller: emailController,
-                validator: (value) => EmailValidator.validate(value)
-                    ? null
-                    : "Inserisci una mail valida",
+                validator: (value) {
+                  if (EmailValidator.validate(value)) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      setState(() {
+                        _mailFlag = true;
+                      });
+                    });
+                    return null;
+                  } else {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      setState(() {
+                        _mailFlag = false;
+                      });
+                    });
+                    return "Inserisci una mail valida";
+                  }
+                },
                 decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     filled: true,
@@ -78,9 +94,21 @@ class _RegistrationForm extends State<RegistrationForm> {
                 obscureText: _obscureText,
                 controller: confirmPasswordController,
                 validator: (val) {
-                  if (val != passwordController.text)
+                  if (val != passwordController.text) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      setState(() {
+                        _confirmPassFlag = false;
+                      });
+                    });
                     return 'Le password non corrispondono';
-                  return null;
+                  } else {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      setState(() {
+                        _confirmPassFlag = true;
+                      });
+                    });
+                    return null;
+                  }
                 },
                 decoration: InputDecoration(
                   labelText: "Reinserisci password",
@@ -103,20 +131,22 @@ class _RegistrationForm extends State<RegistrationForm> {
               ),
               !isLoading
                   ? ElevatedButton(
-                      onPressed: () async {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        if (_form.currentState.validate()) {
-                          await Authentication.signInWithEmail(
-                              emailController.text,
-                              passwordController.text,
-                              context);
-                        }
-                        setState(() {
-                          isLoading = false;
-                        });
-                      },
+                      onPressed: _mailFlag == false || _confirmPassFlag == false
+                          ? null
+                          : () async {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              if (_form.currentState.validate()) {
+                                await Authentication.signInWithEmail(
+                                    emailController.text,
+                                    passwordController.text,
+                                    context);
+                              }
+                              setState(() {
+                                isLoading = false;
+                              });
+                            },
                       child: const Text('Registrati'),
                     )
                   : Center(child: CircularProgressIndicator())
