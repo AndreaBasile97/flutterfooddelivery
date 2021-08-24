@@ -80,14 +80,10 @@ class EntryItem extends StatelessWidget {
 
   Widget _buildTiles(Entry root) {
     if (root.children.isEmpty)
-      return ListTile(
-        title: Text(root.title),
-        subtitle: Text(root.description),
-      );
+      return CustomTile(name: root.title, descrizione: root.description);
     return ExpansionTile(
       key: PageStorageKey<Entry>(root),
       title: Text(root.title),
-      subtitle: Text(root.description),
       children: root.children.map(_buildTiles).toList(),
     );
   }
@@ -95,5 +91,67 @@ class EntryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _buildTiles(entry);
+  }
+}
+
+class CustomTile extends StatefulWidget {
+  const CustomTile({this.name, this.descrizione, key}) : super(key: key);
+  final String name;
+  final String descrizione;
+  @override
+  State<CustomTile> createState() => _CustomTile();
+}
+
+class _CustomTile extends State<CustomTile> {
+  int value = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            CircleAvatar(),
+            Padding(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.name,
+                      style: TextStyle(fontSize: 17),
+                    ),
+                    Text(
+                      widget.descrizione,
+                      style: TextStyle(fontSize: 14),
+                    )
+                  ],
+                ))
+          ],
+        ),
+        Row(
+          children: [
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    value++;
+                  });
+                },
+                icon: Icon(Icons.add_circle)),
+            Text(value.toString()),
+            IconButton(
+                onPressed: value == 0
+                    ? null
+                    : () {
+                        setState(() {
+                          value--;
+                        });
+                      },
+                icon: Icon(Icons.remove_circle))
+          ],
+        )
+      ],
+    );
   }
 }
