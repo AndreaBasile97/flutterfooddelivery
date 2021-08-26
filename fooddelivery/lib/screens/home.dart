@@ -47,7 +47,10 @@ const List<Entry> data = <Entry>[
       ),
       Entry('Panini di terra', '', '', <Entry>[
         Entry('Panino con angus', 'Angus, Salse e Insalata', '4€'),
-        Entry('Panino con pollo', 'Pollo, Salse e Insalata', '3€'),
+        Entry(
+            'Panino con pollo',
+            'Pollo, Salse e Insalata asdasdasdsadasdsadasdasdasdasdasdsadasdsadasdsadasdasdasdsadasdasdasdasdaadsadasd',
+            '3€'),
       ]),
     ],
   ),
@@ -82,29 +85,10 @@ class EntryItem extends StatelessWidget {
 
   Widget _buildTiles(Entry root) {
     if (root.children.isEmpty)
-      return ListTile(
-          title: Text(root.title),
-          isThreeLine: true,
-          subtitle: Text(root.description + '\n' + root.price),
-          trailing: Wrap(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.remove_circle),
-                tooltip: 'Rimuovi dal carrello',
-                onPressed: () {},
-              ),
-              Text('0'),
-              IconButton(
-                icon: const Icon(Icons.add_circle),
-                tooltip: 'Aggiungi al carrello',
-                onPressed: () {},
-              ),
-            ],
-          ));
+      return CustomTile(name: root.title, descrizione: root.description);
     return ExpansionTile(
       key: PageStorageKey<Entry>(root),
       title: Text(root.title),
-      subtitle: Text(root.description + '\n' + root.price),
       children: root.children.map(_buildTiles).toList(),
     );
   }
@@ -112,5 +96,80 @@ class EntryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _buildTiles(entry);
+  }
+}
+
+class CustomTile extends StatefulWidget {
+  const CustomTile({this.name, this.descrizione, key}) : super(key: key);
+  final String name;
+  final String descrizione;
+  @override
+  State<CustomTile> createState() => _CustomTile();
+}
+
+class _CustomTile extends State<CustomTile> {
+  int value = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Column(
+            children: [
+              CircleAvatar(),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Column(
+            children: [
+              Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.name,
+                        style: TextStyle(fontSize: 17),
+                      ),
+                      Text(
+                        widget.descrizione,
+                        style: TextStyle(fontSize: 14),
+                      )
+                    ],
+                  ))
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      value++;
+                    });
+                  },
+                  icon: Icon(Icons.add_circle)),
+              Text(value.toString()),
+              IconButton(
+                  onPressed: value == 0
+                      ? null
+                      : () {
+                          setState(() {
+                            value--;
+                          });
+                        },
+                  icon: Icon(Icons.remove_circle))
+            ],
+          ),
+        )
+      ],
+    );
   }
 }
