@@ -118,14 +118,16 @@ class _CustomTile extends State<CustomTile> {
         Expanded(
           flex: 1,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CircleAvatar(),
             ],
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 5,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                   padding: EdgeInsets.all(10),
@@ -146,8 +148,9 @@ class _CustomTile extends State<CustomTile> {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               IconButton(
                   onPressed: () {
