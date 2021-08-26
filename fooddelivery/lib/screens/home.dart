@@ -85,7 +85,8 @@ class EntryItem extends StatelessWidget {
 
   Widget _buildTiles(Entry root) {
     if (root.children.isEmpty)
-      return CustomTile(name: root.title, descrizione: root.description);
+      return CustomTile(
+          name: root.title, descrizione: root.description, prezzo: root.price);
     return ExpansionTile(
       key: PageStorageKey<Entry>(root),
       title: Text(root.title),
@@ -100,9 +101,11 @@ class EntryItem extends StatelessWidget {
 }
 
 class CustomTile extends StatefulWidget {
-  const CustomTile({this.name, this.descrizione, key}) : super(key: key);
+  const CustomTile({this.name, this.descrizione, this.prezzo, key})
+      : super(key: key);
   final String name;
   final String descrizione;
+  final String prezzo;
   @override
   State<CustomTile> createState() => _CustomTile();
 }
@@ -115,19 +118,15 @@ class _CustomTile extends State<CustomTile> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          flex: 1,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CircleAvatar(),
-            ],
-          ),
+        Padding(
+          padding: EdgeInsets.all(5),
+          child: CircleAvatar(),
         ),
         Expanded(
-          flex: 5,
+          flex: 11,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                   padding: EdgeInsets.all(10),
@@ -136,19 +135,17 @@ class _CustomTile extends State<CustomTile> {
                     children: [
                       Text(
                         widget.name,
-                        style: TextStyle(fontSize: 17),
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text(
-                        widget.descrizione,
-                        style: TextStyle(fontSize: 14),
-                      )
+                      Text(widget.descrizione),
+                      Text(widget.prezzo)
                     ],
                   ))
             ],
           ),
         ),
         Expanded(
-          flex: 2,
+          flex: 5,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
