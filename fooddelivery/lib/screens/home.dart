@@ -101,8 +101,8 @@ class EntryItem extends StatelessWidget {
 }
 
 class CustomTile extends StatefulWidget {
-  const CustomTile({this.name, this.descrizione, this.prezzo, key})
-      : super(key: key);
+  int value = 0;
+  CustomTile({this.name, this.descrizione, this.prezzo, key}) : super(key: key);
   final String name;
   final String descrizione;
   final String prezzo;
@@ -111,7 +111,11 @@ class CustomTile extends StatefulWidget {
 }
 
 class _CustomTile extends State<CustomTile> {
-  int value = 0;
+  void _incremento() {
+    setState(() {
+      widget.value++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,17 +152,17 @@ class _CustomTile extends State<CustomTile> {
               IconButton(
                   onPressed: () {
                     setState(() {
-                      value++;
+                      _incremento();
                     });
                   },
                   icon: Icon(Icons.add_circle)),
-              Text(value.toString()),
+              Text(widget.value.toString()),
               IconButton(
-                  onPressed: value == 0
+                  onPressed: widget.value == 0
                       ? null
                       : () {
                           setState(() {
-                            value--;
+                            widget.value--;
                           });
                         },
                   icon: Icon(Icons.remove_circle))
