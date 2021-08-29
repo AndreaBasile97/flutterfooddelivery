@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
         children: [
           ListView.builder(
             itemBuilder: (BuildContext context, int index) =>
-                EntryItem(data[index]),
+                ProdottoItem(data[index]),
             itemCount: data.length,
           )
         ],
@@ -20,57 +20,57 @@ class Home extends StatelessWidget {
   }
 }
 
-class Entry {
-  const Entry(this.title, this.description, this.price,
-      [this.children = const <Entry>[]]);
+class Prodotto {
+  const Prodotto(this.title, this.description, this.price,
+      [this.children = const <Prodotto>[]]);
   final String title;
   final String description;
   final String price;
-  final List<Entry> children;
+  final List<Prodotto> children;
 }
 
 // Data to display.
-const List<Entry> data = <Entry>[
-  Entry(
+const List<Prodotto> data = <Prodotto>[
+  Prodotto(
     'Panini',
     '',
     '',
-    <Entry>[
-      Entry(
+    <Prodotto>[
+      Prodotto(
         'Panini di Mare',
         '',
         '',
-        <Entry>[
-          Entry('Panino al salmone', 'Salmone, Maionese, Verdure', '5€'),
-          Entry('Panino al tonno', 'Salmone, Maionese, Verdure', '2€'),
+        <Prodotto>[
+          Prodotto('Panino al salmone', 'Salmone, Maionese, Verdure', '5€'),
+          Prodotto('Panino al tonno', 'Salmone, Maionese, Verdure', '2€'),
         ],
       ),
-      Entry('Panini di terra', '', '', <Entry>[
-        Entry('Panino con angus', 'Angus, Salse e Insalata', '4€'),
-        Entry(
+      Prodotto('Panini di terra', '', '', <Prodotto>[
+        Prodotto('Panino con angus', 'Angus, Salse e Insalata', '4€'),
+        Prodotto(
             'Panino con pollo',
             'Pollo, Salse e Insalata asdasdasdsadasdsadasdasdasdasdasdsadasdsadasdsadasdasdasdsadasdasdasdasdaadsadasd',
             '3€'),
       ]),
     ],
   ),
-  Entry(
+  Prodotto(
     'Panini',
     '',
     '',
-    <Entry>[
-      Entry(
+    <Prodotto>[
+      Prodotto(
         'Panini di Mare',
         '',
         '',
-        <Entry>[
-          Entry('Panino al salmone', 'Salmone, Maionese, Verdure', '5€'),
-          Entry('Panino al tonno', 'Salmone, Maionese, Verdure', '2€'),
+        <Prodotto>[
+          Prodotto('Panino al salmone', 'Salmone, Maionese, Verdure', '5€'),
+          Prodotto('Panino al tonno', 'Salmone, Maionese, Verdure', '2€'),
         ],
       ),
-      Entry('Panini di terra', '', '', <Entry>[
-        Entry('Panino con angus', 'Angus, Salse e Insalata', '4€'),
-        Entry('Panino con pollo', 'Pollo, Salse e Insalata', '3€'),
+      Prodotto('Panini di terra', '', '', <Prodotto>[
+        Prodotto('Panino con angus', 'Angus, Salse e Insalata', '4€'),
+        Prodotto('Panino con pollo', 'Pollo, Salse e Insalata', '3€'),
       ]),
     ],
   ),
@@ -78,17 +78,17 @@ const List<Entry> data = <Entry>[
 
 // Displays one Entry. If the entry has children then it's displayed
 // with an ExpansionTile.
-class EntryItem extends StatelessWidget {
-  const EntryItem(this.entry);
+class ProdottoItem extends StatelessWidget {
+  const ProdottoItem(this.prodotto);
 
-  final Entry entry;
+  final Prodotto prodotto;
 
-  Widget _buildTiles(Entry root) {
+  Widget _buildTiles(Prodotto root) {
     if (root.children.isEmpty)
       return CustomTile(
           name: root.title, descrizione: root.description, prezzo: root.price);
     return ExpansionTile(
-      key: PageStorageKey<Entry>(root),
+      key: PageStorageKey<Prodotto>(root),
       title: Text(root.title),
       children: root.children.map(_buildTiles).toList(),
     );
@@ -96,10 +96,11 @@ class EntryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _buildTiles(entry);
+    return _buildTiles(prodotto);
   }
 }
 
+// ignore: must_be_immutable
 class CustomTile extends StatefulWidget {
   int value = 0;
   CustomTile({this.name, this.descrizione, this.prezzo, key}) : super(key: key);
@@ -114,6 +115,12 @@ class _CustomTile extends State<CustomTile> {
   void _incremento() {
     setState(() {
       widget.value++;
+    });
+  }
+
+  void _rimuovi() {
+    setState(() {
+      widget.value--;
     });
   }
 
@@ -151,9 +158,7 @@ class _CustomTile extends State<CustomTile> {
             children: [
               IconButton(
                   onPressed: () {
-                    setState(() {
-                      _incremento();
-                    });
+                    _incremento();
                   },
                   icon: Icon(Icons.add_circle)),
               Text(widget.value.toString()),
@@ -161,9 +166,7 @@ class _CustomTile extends State<CustomTile> {
                   onPressed: widget.value == 0
                       ? null
                       : () {
-                          setState(() {
-                            widget.value--;
-                          });
+                          _rimuovi();
                         },
                   icon: Icon(Icons.remove_circle))
             ],
