@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/interactive/carrello.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // This is handled by the search bar itself.
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          ListView.builder(
-            itemBuilder: (BuildContext context, int index) =>
-                ProdottoItem(data[index]),
-            itemCount: data.length,
-          )
-        ],
-      ),
-    );
+    return ChangeNotifierProvider<Carrello>(
+        create: (context) => Carrello(),
+        child: Scaffold(
+          // This is handled by the search bar itself.
+          resizeToAvoidBottomInset: false,
+          body: Stack(
+            fit: StackFit.expand,
+            children: [
+              ListView.builder(
+                itemBuilder: (BuildContext context, int index) =>
+                    ProdottoItem(data[index]),
+                itemCount: data.length,
+              )
+            ],
+          ),
+        ));
   }
 }
 
@@ -116,6 +120,7 @@ class _CustomTile extends State<CustomTile> {
     setState(() {
       widget.value++;
     });
+    Provider.of<Carrello>(context, listen: false).incrementa(widget.name);
   }
 
   void _rimuovi() {
