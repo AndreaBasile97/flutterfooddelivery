@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/screens/cart.dart';
 import 'package:fooddelivery/screens/home.dart';
 
 class Master extends StatefulWidget {
@@ -14,10 +15,7 @@ class _Master extends State<Master> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     Home(),
-    Text(
-      'Carrello',
-      style: optionStyle,
-    ),
+    Cart(),
     Text(
       'Profilo',
       style: optionStyle,

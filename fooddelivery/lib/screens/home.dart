@@ -137,7 +137,9 @@ class _CustomTile extends State<CustomTile> {
       children: [
         Padding(
           padding: EdgeInsets.all(5),
-          child: CircleAvatar(),
+          child: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJtLpm3-3xKOxqDr5UIDqMctl9MUC5YYzI0w&usqp=CAU')),
         ),
         Expanded(
           flex: 11,
