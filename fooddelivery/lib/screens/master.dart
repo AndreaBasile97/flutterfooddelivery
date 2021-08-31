@@ -13,14 +13,6 @@ class _Master extends State<Master> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static List<Widget> _widgetOptions = <Widget>[
-    Home(),
-    Cart(),
-    Text(
-      'Profilo',
-      style: optionStyle,
-    ),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -31,7 +23,17 @@ class _Master extends State<Master> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _widgetOptions[_selectedIndex],
+      body: IndexedStack(
+        children: <Widget>[
+          Home(),
+          Cart(),
+          Text(
+            'Profilo',
+            style: optionStyle,
+          ),
+        ],
+        index: _selectedIndex,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,

@@ -115,7 +115,8 @@ class CustomTile extends StatefulWidget {
   State<CustomTile> createState() => _CustomTile();
 }
 
-class _CustomTile extends State<CustomTile> {
+class _CustomTile extends State<CustomTile>
+    with AutomaticKeepAliveClientMixin<CustomTile> {
   void _incremento() {
     setState(() {
       widget.value++;
@@ -131,6 +132,7 @@ class _CustomTile extends State<CustomTile> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -182,4 +184,7 @@ class _CustomTile extends State<CustomTile> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
