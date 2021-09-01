@@ -25,16 +25,17 @@ class Home extends StatelessWidget {
 }
 
 class Prodotto {
-  const Prodotto(this.title, this.description, this.price,
+  Prodotto(this.title, this.description, this.price,
       [this.children = const <Prodotto>[]]);
   final String title;
   final String description;
   final String price;
+  int quantity;
   final List<Prodotto> children;
 }
 
 // Data to display.
-const List<Prodotto> data = <Prodotto>[
+List<Prodotto> data = <Prodotto>[
   Prodotto(
     'Panini',
     '',
@@ -106,27 +107,35 @@ class ProdottoItem extends StatelessWidget {
 
 // ignore: must_be_immutable
 class CustomTile extends StatefulWidget {
-  int value = 0;
   CustomTile({this.name, this.descrizione, this.prezzo, key}) : super(key: key);
   final String name;
   final String descrizione;
   final String prezzo;
+  int quantita;
+
+  String get description => null;
+
+  String get price => null;
+
+  String get title => null;
   @override
   State<CustomTile> createState() => _CustomTile();
 }
 
 class _CustomTile extends State<CustomTile>
     with AutomaticKeepAliveClientMixin<CustomTile> {
+  int value = 0;
   void _incremento() {
     setState(() {
-      widget.value++;
+      value++;
     });
-    Provider.of<Carrello>(context, listen: false).incrementa(widget.name);
+    Provider.of<Carrello>(context, listen: false).incrementa(
+        new Prodotto(widget.name, widget.descrizione, widget.prezzo));
   }
 
   void _rimuovi() {
     setState(() {
-      widget.value--;
+      value--;
     });
   }
 
@@ -170,9 +179,13 @@ class _CustomTile extends State<CustomTile>
                     _incremento();
                   },
                   icon: Icon(Icons.add_circle)),
-              Text(widget.value.toString()),
+              Text(Provider.of<Carrello>(context, listen: false)
+                  .quantitaProdotto(widget.name)
+                  .toString()),
               IconButton(
-                  onPressed: widget.value == 0
+                  onPressed: Provider.of<Carrello>(context, listen: false)
+                              .quantitaProdotto(widget.name) ==
+                          0
                       ? null
                       : () {
                           _rimuovi();
