@@ -25,35 +25,44 @@ class Home extends StatelessWidget {
 }
 
 class Prodotto {
-  Prodotto(this.title, this.description, this.price,
+  Prodotto(this.title, this.kay, this.description, this.price,
       [this.children = const <Prodotto>[]]);
+
+  final int kay;
   final String title;
   final String description;
   final String price;
-  int quantity;
+  int quantity = 0;
   final List<Prodotto> children;
+
+  void setQuantity(bool flag) {
+    flag ? quantity++ : quantity--;
+  }
 }
 
 // Data to display.
 List<Prodotto> data = <Prodotto>[
   Prodotto(
     'Panini',
+    null,
     '',
     '',
     <Prodotto>[
       Prodotto(
         'Panini di Mare',
+        null,
         '',
         '',
         <Prodotto>[
-          Prodotto('Panino al salmone', 'Salmone, Maionese, Verdure', '5€'),
-          Prodotto('Panino al tonno', 'Salmone, Maionese, Verdure', '2€'),
+          Prodotto('Panino al salmone', 1, 'Salmone, Maionese, Verdure', '5€'),
+          Prodotto('Panino al tonno', 2, 'Salmone, Maionese, Verdure', '2€'),
         ],
       ),
-      Prodotto('Panini di terra', '', '', <Prodotto>[
-        Prodotto('Panino con angus', 'Angus, Salse e Insalata', '4€'),
+      Prodotto('Panini di terra', null, '', '', <Prodotto>[
+        Prodotto('Panino con angus', 3, 'Angus, Salse e Insalata', '4€'),
         Prodotto(
             'Panino con pollo',
+            4,
             'Pollo, Salse e Insalata asdasdasdsadasdsadasdasdasdasdasdsadasdsadasdsadasdasdasdsadasdasdasdasdaadsadasd',
             '3€'),
       ]),
@@ -61,21 +70,23 @@ List<Prodotto> data = <Prodotto>[
   ),
   Prodotto(
     'Panini',
+    null,
     '',
     '',
     <Prodotto>[
       Prodotto(
         'Panini di Mare',
+        null,
         '',
         '',
         <Prodotto>[
-          Prodotto('Panino al salmone', 'Salmone, Maionese, Verdure', '5€'),
-          Prodotto('Panino al tonno', 'Salmone, Maionese, Verdure', '2€'),
+          Prodotto('Panino al salmone', 5, 'Salmone, Maionese, Verdure', '5€'),
+          Prodotto('Panino al tonno', 6, 'Salmone, Maionese, Verdure', '2€'),
         ],
       ),
-      Prodotto('Panini di terra', '', '', <Prodotto>[
-        Prodotto('Panino con angus', 'Angus, Salse e Insalata', '4€'),
-        Prodotto('Panino con pollo', 'Pollo, Salse e Insalata', '3€'),
+      Prodotto('Panini di terra', null, '', '', <Prodotto>[
+        Prodotto('Panino con angus', 7, 'Angus, Salse e Insalata', '4€'),
+        Prodotto('Panino con pollo', 8, 'Pollo, Salse e Insalata', '3€'),
       ]),
     ],
   ),
@@ -89,9 +100,7 @@ class ProdottoItem extends StatelessWidget {
   final Prodotto prodotto;
 
   Widget _buildTiles(Prodotto root) {
-    if (root.children.isEmpty)
-      return CustomTile(
-          name: root.title, descrizione: root.description, prezzo: root.price);
+    if (root.children.isEmpty) return CustomTile(prodotto: root);
     return ExpansionTile(
       key: PageStorageKey<Prodotto>(root),
       title: Text(root.title),
@@ -107,35 +116,25 @@ class ProdottoItem extends StatelessWidget {
 
 // ignore: must_be_immutable
 class CustomTile extends StatefulWidget {
-  CustomTile({this.name, this.descrizione, this.prezzo, key}) : super(key: key);
-  final String name;
-  final String descrizione;
-  final String prezzo;
-  int quantita;
+  CustomTile({this.prodotto, key}) : super(key: key);
 
-  String get description => null;
+  final Prodotto prodotto;
 
-  String get price => null;
-
-  String get title => null;
   @override
   State<CustomTile> createState() => _CustomTile();
 }
 
 class _CustomTile extends State<CustomTile>
     with AutomaticKeepAliveClientMixin<CustomTile> {
-  int value = 0;
   void _incremento() {
     setState(() {
-      value++;
+      Provider.of<Carrello>(context, listen: false).incrementa(widget.prodotto);
     });
-    Provider.of<Carrello>(context, listen: false).incrementa(
-        new Prodotto(widget.name, widget.descrizione, widget.prezzo));
   }
 
   void _rimuovi() {
     setState(() {
-      value--;
+      Provider.of<Carrello>(context, listen: false).rimuovi(widget.prodotto);
     });
   }
 
@@ -161,11 +160,11 @@ class _CustomTile extends State<CustomTile>
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    widget.name,
+                    widget.prodotto.title,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text(widget.descrizione),
-                  Text(widget.prezzo)
+                  Text(widget.prodotto.description),
+                  Text(widget.prodotto.price)
                 ],
               )),
         ),
@@ -179,13 +178,9 @@ class _CustomTile extends State<CustomTile>
                     _incremento();
                   },
                   icon: Icon(Icons.add_circle)),
-              Text(Provider.of<Carrello>(context, listen: false)
-                  .quantitaProdotto(widget.name)
-                  .toString()),
+              Text(widget.prodotto.quantity.toString()),
               IconButton(
-                  onPressed: Provider.of<Carrello>(context, listen: false)
-                              .quantitaProdotto(widget.name) ==
-                          0
+                  onPressed: widget.prodotto.quantity == 0
                       ? null
                       : () {
                           _rimuovi();

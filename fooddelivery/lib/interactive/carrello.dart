@@ -5,22 +5,28 @@ class Carrello extends ChangeNotifier {
   List<Prodotto> lista = [];
 
   void incrementa(Prodotto p) {
-    lista.add(p);
-    print(lista);
-    notifyListeners();
+    if (!lista.contains(p)) {
+      lista.add(p);
+      p.setQuantity(true);
+    } else
+      p.setQuantity(true);
+    print(printLista());
   }
 
-  //Conta quante volte un prodotto è presente nella lista
-  int quantitaProdotto(String nomeProdotto) {
-    int count = 0;
-    if (lista.length > 0) {
-      lista.forEach((prodotto) {
-        if (prodotto.title == nomeProdotto) {
-          count++;
-        }
-      });
-    }
-    print(count);
-    return count;
+  void rimuovi(Prodotto p) {
+    if (p.quantity == 1) {
+      p.setQuantity(false);
+      lista.remove(p);
+    } else
+      p.setQuantity(false);
+    print(printLista());
+  }
+
+  String printLista() {
+    String resoult = "lista:\n";
+    lista.forEach((element) {
+      resoult += element.title + " " + element.quantity.toString() + "\n";
+    });
+    return resoult;
   }
 }
