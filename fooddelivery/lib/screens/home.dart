@@ -25,10 +25,10 @@ class Home extends StatelessWidget {
 }
 
 class Prodotto {
-  Prodotto(this.title, this.kay, this.description, this.price,
+  Prodotto(this.title, this.key, this.description, this.price,
       [this.children = const <Prodotto>[]]);
 
-  final int kay;
+  final int key;
   final String title;
   final String description;
   final String price;
@@ -114,7 +114,6 @@ class ProdottoItem extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
 class CustomTile extends StatefulWidget {
   CustomTile({this.prodotto, key}) : super(key: key);
 

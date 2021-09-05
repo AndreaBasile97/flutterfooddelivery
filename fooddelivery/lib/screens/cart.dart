@@ -1,35 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/interactive/carrello.dart';
+import 'package:fooddelivery/screens/home.dart';
+import 'package:provider/provider.dart';
 
 class Cart extends StatelessWidget {
   const Cart({Key key}) : super(key: key);
 
-  static const kIcons = <Icon>[Icon(Icons.event), Icon(Icons.home)];
+  static final widgets = <Widget>[CartScreen(), ShipmentScreen()];
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      // Use a Builder here, otherwise `DefaultTabController.of(context)` below
-      // returns null.
-      child: Builder(
-        builder: (BuildContext context) => Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              const TabPageSelector(),
-              Expanded(
-                child: IconTheme(
-                  data: IconThemeData(
-                    size: 128.0,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  child: const TabBarView(children: kIcons),
-                ),
-              ),
-            ],
-          ),
-        ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [CartScreen()],
       ),
     );
+  }
+}
+
+class CartScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // This is handled by the search bar itself.
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          ListView.builder(
+            itemBuilder: (BuildContext context, int index) =>
+                ProdottoItem(Carrello.lista[index]),
+            itemCount: Carrello.lista.length,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ShipmentScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
   }
 }

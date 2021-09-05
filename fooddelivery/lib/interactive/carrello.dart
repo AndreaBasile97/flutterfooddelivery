@@ -1,8 +1,10 @@
+library fooddelivery.globals;
+
 import 'package:flutter/foundation.dart';
 import 'package:fooddelivery/screens/home.dart';
 
 class Carrello extends ChangeNotifier {
-  List<Prodotto> lista = [];
+  static List<Prodotto> lista = [];
 
   void incrementa(Prodotto p) {
     if (!lista.contains(p)) {
@@ -23,10 +25,10 @@ class Carrello extends ChangeNotifier {
   }
 
   String printLista() {
-    String resoult = "lista:\n";
+    String result = "lista:\n";
     lista.forEach((element) {
-      resoult += element.title + " " + element.quantity.toString() + "\n";
+      result += element.title + " " + element.quantity.toString() + "\n";
     });
-    return resoult;
+    return result;
   }
 }
