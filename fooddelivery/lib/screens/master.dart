@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/interactive/carrello.dart';
 import 'package:fooddelivery/screens/cart.dart';
 import 'package:fooddelivery/screens/home.dart';
+import 'package:provider/provider.dart';
 
 class Master extends StatefulWidget {
   const Master({Key key}) : super(key: key);
@@ -22,39 +24,41 @@ class _Master extends State<Master> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        children: <Widget>[
-          Home(),
-          Cart(),
-          Text(
-            'Profilo',
-            style: optionStyle,
+    return ChangeNotifierProvider<Carrello>(
+        create: (context) => Carrello(),
+        child: Scaffold(
+          body: IndexedStack(
+            children: <Widget>[
+              Home(),
+              Cart(),
+              Text(
+                'Profilo',
+                style: optionStyle,
+              ),
+            ],
+            index: _selectedIndex,
           ),
-        ],
-        index: _selectedIndex,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+          bottomNavigationBar: BottomNavigationBar(
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart),
+                label: 'Carrello',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle),
+                label: 'Profilo',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.amber[800],
+            onTap: _onItemTapped,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Carrello',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Profilo',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
-      ),
-    );
+        ));
   }
 }

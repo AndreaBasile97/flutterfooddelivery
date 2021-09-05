@@ -5,22 +5,20 @@ import 'package:provider/provider.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<Carrello>(
-        create: (context) => Carrello(),
-        child: Scaffold(
-          // This is handled by the search bar itself.
-          resizeToAvoidBottomInset: false,
-          body: Stack(
-            fit: StackFit.expand,
-            children: [
-              ListView.builder(
-                itemBuilder: (BuildContext context, int index) =>
-                    ProdottoItem(data[index]),
-                itemCount: data.length,
-              )
-            ],
-          ),
-        ));
+    return Scaffold(
+      // This is handled by the search bar itself.
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          ListView.builder(
+            itemBuilder: (BuildContext context, int index) =>
+                ProdottoItem(data[index]),
+            itemCount: data.length,
+          )
+        ],
+      ),
+    );
   }
 }
 

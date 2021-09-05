@@ -1,5 +1,3 @@
-library fooddelivery.globals;
-
 import 'package:flutter/foundation.dart';
 import 'package:fooddelivery/screens/home.dart';
 
