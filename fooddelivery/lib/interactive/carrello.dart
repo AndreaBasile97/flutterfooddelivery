@@ -32,32 +32,19 @@ class Carrello extends ChangeNotifier {
     return result;
   }
 
-  static void doOrdine() {
+  static void ordina() {
     FirebaseFirestore.instance
         .collection('ordinazioni')
         .add({'ordine': printLista()});
   }
 
-  static Widget readOrdine() {
-    return Scaffold(
-      body: StreamBuilder(
-        stream:
-            FirebaseFirestore.instance.collection('ordinazioni').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return ListView(
-            children: snapshot.data.docs.map((ordinazione) {
-              return Container(
-                child: Center(child: Text(ordinazione['ordine'])),
-              );
-            }).toList(),
-          );
-        },
-      ),
-    );
+  static Future getAllOrdini(BuildContext context) async {
+    QuerySnapshot refOrdini =
+        await FirebaseFirestore.instance.collection("ordinazioni").get();
+    var ordini = [];
+    for (int i = 0; i < refOrdini.docs.length; i++) {
+      ordini.add(refOrdini.docs[i].data().toString());
+    }
+    print(ordini);
   }
 }
