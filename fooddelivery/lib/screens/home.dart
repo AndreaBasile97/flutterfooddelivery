@@ -144,9 +144,16 @@ class _CustomTile extends State<CustomTile>
       children: [
         Padding(
           padding: EdgeInsets.all(5),
-          child: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJtLpm3-3xKOxqDr5UIDqMctl9MUC5YYzI0w&usqp=CAU')),
+          child: GestureDetector(
+            onTap: () => _mostraImmagine(context),
+            child: Hero(
+              // TODO: il tag deve essere diverso da ogni immagine
+              tag: 'tag',
+              child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJtLpm3-3xKOxqDr5UIDqMctl9MUC5YYzI0w&usqp=CAU')),
+            ),
+          ),
         ),
         Expanded(
           flex: 11,
@@ -188,6 +195,17 @@ class _CustomTile extends State<CustomTile>
         )
       ],
     );
+  }
+
+  void _mostraImmagine(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (ctx) => Scaffold(
+          body: Center(
+              child: Hero(
+                  tag: 'tag',
+                  child: Image.network(
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJtLpm3-3xKOxqDr5UIDqMctl9MUC5YYzI0w&usqp=CAU')))),
+    ));
   }
 
   @override
