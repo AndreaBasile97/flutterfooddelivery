@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fooddelivery/interactive/carrello.dart';
 import 'package:fooddelivery/screens/home.dart';
+import 'package:lottie/lottie.dart';
 
 class Cart extends StatelessWidget {
   const Cart({Key key}) : super(key: key);
@@ -54,6 +55,10 @@ class CartScreen extends StatelessWidget {
                 ProdottoItem(Carrello.lista[index]),
             itemCount: Carrello.lista.length,
           ),
+          Center(
+            child: Lottie.asset('asset/animations/completed.json',
+                animate: true, frameRate: FrameRate(90), width: 300),
+          )
         ],
       ),
       bottomNavigationBar: Padding(
