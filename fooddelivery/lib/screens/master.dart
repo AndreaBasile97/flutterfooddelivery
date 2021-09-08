@@ -3,6 +3,7 @@ import 'package:fooddelivery/interactive/carrello.dart';
 import 'package:fooddelivery/screens/cart.dart';
 import 'package:fooddelivery/screens/home.dart';
 import 'package:provider/provider.dart';
+import 'package:badges/badges.dart';
 
 class Master extends StatefulWidget {
   const Master({Key key}) : super(key: key);
@@ -13,6 +14,7 @@ class Master extends StatefulWidget {
 
 class _Master extends State<Master> {
   int _selectedIndex = 0;
+  int j = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -41,15 +43,18 @@ class _Master extends State<Master> {
           bottomNavigationBar: BottomNavigationBar(
             showSelectedLabels: false,
             showUnselectedLabels: false,
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart),
-                label: 'Carrello',
-              ),
+                  label: 'Carrello',
+                  icon: Badge(
+                    badgeContent: Text(Carrello.i.toString()),
+                    showBadge: Carrello.i < 1 ? false : true,
+                    child: Icon(Icons.shopping_cart),
+                  )),
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle),
                 label: 'Profilo',
