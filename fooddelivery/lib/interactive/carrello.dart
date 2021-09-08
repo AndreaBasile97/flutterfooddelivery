@@ -5,7 +5,7 @@ import 'package:fooddelivery/screens/home.dart';
 
 class Carrello extends ChangeNotifier {
   static List<Prodotto> lista = [];
-  static int i = 0;
+  int i = 0;
   void incrementa(Prodotto p) {
     if (!lista.contains(p)) {
       lista.add(p);
@@ -13,6 +13,7 @@ class Carrello extends ChangeNotifier {
     } else
       p.setQuantity(true);
     i++;
+    notifyListeners();
     print(printLista());
   }
 
@@ -24,6 +25,7 @@ class Carrello extends ChangeNotifier {
       p.setQuantity(false);
     }
     i--;
+    notifyListeners();
     print(printLista());
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/interactive/bottomNavigationBar.dart';
 import 'package:fooddelivery/interactive/carrello.dart';
 import 'package:fooddelivery/screens/cart.dart';
 import 'package:fooddelivery/screens/home.dart';
@@ -27,43 +28,6 @@ class _Master extends State<Master> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<Carrello>(
-        create: (context) => Carrello(),
-        child: Scaffold(
-          body: IndexedStack(
-            children: <Widget>[
-              Home(),
-              Cart(),
-              Text(
-                'Profilo',
-                style: optionStyle,
-              ),
-            ],
-            index: _selectedIndex,
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                  label: 'Carrello',
-                  icon: Badge(
-                    badgeContent: Text(Carrello.i.toString()),
-                    showBadge: Carrello.i < 1 ? false : true,
-                    child: Icon(Icons.shopping_cart),
-                  )),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle),
-                label: 'Profilo',
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            selectedItemColor: Colors.amber[800],
-            onTap: _onItemTapped,
-          ),
-        ));
+        create: (context) => Carrello(), child: Bnb());
   }
 }
