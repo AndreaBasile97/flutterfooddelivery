@@ -50,8 +50,12 @@ class _Bnb extends State<Bnb> {
           BottomNavigationBarItem(
               label: 'Carrello',
               icon: Badge(
+                animationDuration: Duration(milliseconds: 200),
                 animationType: BadgeAnimationType.scale,
-                badgeContent: Text(carrello.i.toString()),
+                badgeContent: Text(
+                  carrello.i.toString(),
+                  style: TextStyle(fontSize: 10),
+                ),
                 showBadge: carrello.i < 1 ? false : true,
                 child: Icon(Icons.shopping_cart),
               )),
