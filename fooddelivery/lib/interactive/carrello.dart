@@ -30,7 +30,7 @@ class Carrello extends ChangeNotifier {
   }
 
   static String printLista() {
-    String result = "lista:\n";
+    String result = "";
     lista.forEach((element) {
       result += element.title + " " + element.quantity.toString() + "\n";
     });

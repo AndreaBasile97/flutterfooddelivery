@@ -6,7 +6,8 @@ import 'package:fooddelivery/screens/home.dart';
 import 'package:provider/provider.dart';
 
 class Bnb extends StatefulWidget {
-  const Bnb({Key key}) : super(key: key);
+  final List<Prodotto> snapshot;
+  const Bnb(this.snapshot, {Key key}) : super(key: key);
 
   @override
   State<Bnb> createState() => _Bnb();
@@ -25,12 +26,14 @@ class _Bnb extends State<Bnb> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     final carrello = context.watch<Carrello>();
     return Scaffold(
       body: IndexedStack(
         children: <Widget>[
-          Home(),
+          Home(widget.snapshot),
           Cart(),
           Text(
             'Profilo',

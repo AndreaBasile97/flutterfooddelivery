@@ -3,6 +3,9 @@ import 'package:fooddelivery/interactive/carrello.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
+  final List<Prodotto> snapshot;
+  Home(this.snapshot, {Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,8 +16,8 @@ class Home extends StatelessWidget {
         children: [
           ListView.builder(
             itemBuilder: (BuildContext context, int index) =>
-                ProdottoItem(data[index]),
-            itemCount: data.length,
+                ProdottoItem(snapshot[index]),
+            itemCount: snapshot.length,
           )
         ],
       ),
@@ -26,7 +29,7 @@ class Prodotto {
   Prodotto(this.title, this.key, this.description, this.price,
       [this.children = const <Prodotto>[]]);
 
-  final int key;
+  final String key;
   final String title;
   final String description;
   final String price;
@@ -37,58 +40,6 @@ class Prodotto {
     flag ? quantity++ : quantity--;
   }
 }
-
-// Data to display.
-List<Prodotto> data = <Prodotto>[
-  Prodotto(
-    'Panini',
-    null,
-    '',
-    '',
-    <Prodotto>[
-      Prodotto(
-        'Panini di Mare',
-        null,
-        '',
-        '',
-        <Prodotto>[
-          Prodotto('Panino al salmone', 1, 'Salmone, Maionese, Verdure', '5€'),
-          Prodotto('Panino al tonno', 2, 'Salmone, Maionese, Verdure', '2€'),
-        ],
-      ),
-      Prodotto('Panini di terra', null, '', '', <Prodotto>[
-        Prodotto('Panino con angus', 3, 'Angus, Salse e Insalata', '4€'),
-        Prodotto(
-            'Panino con pollo',
-            4,
-            'Pollo, Salse e Insalata asdasdasdsadasdsadasdasdasdasdasdsadasdsadasdsadasdasdasdsadasdasdasdasdaadsadasd',
-            '3€'),
-      ]),
-    ],
-  ),
-  Prodotto(
-    'Panini',
-    null,
-    '',
-    '',
-    <Prodotto>[
-      Prodotto(
-        'Panini di Mare',
-        null,
-        '',
-        '',
-        <Prodotto>[
-          Prodotto('Panino al salmone', 5, 'Salmone, Maionese, Verdure', '5€'),
-          Prodotto('Panino al tonno', 6, 'Salmone, Maionese, Verdure', '2€'),
-        ],
-      ),
-      Prodotto('Panini di terra', null, '', '', <Prodotto>[
-        Prodotto('Panino con angus', 7, 'Angus, Salse e Insalata', '4€'),
-        Prodotto('Panino con pollo', 8, 'Pollo, Salse e Insalata', '3€'),
-      ]),
-    ],
-  ),
-];
 
 // Displays one Entry. If the entry has children then it's displayed
 // with an ExpansionTile.

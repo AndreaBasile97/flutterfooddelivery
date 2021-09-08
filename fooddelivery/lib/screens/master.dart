@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fooddelivery/interactive/bottomNavigationBar.dart';
 import 'package:fooddelivery/interactive/carrello.dart';
@@ -25,9 +26,40 @@ class _Master extends State<Master> {
     });
   }
 
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  static Future<List<Prodotto>> getAllProdotti(BuildContext context) async {
+    QuerySnapshot refProdotti =
+        await FirebaseFirestore.instance.collection("prodotti").get();
+    var temp;
+    List<Prodotto> prodotti = [];
+    for (int i = 0; i < refProdotti.docs.length; i++) {
+      temp = (refProdotti.docs[i].data());
+      String nome = temp['nome'];
+      String descrizione = temp['descrizione'];
+      String prezzo = temp['prezzo'];
+      String kay = refProdotti.docs[i].id;
+      Prodotto p = Prodotto(nome, kay, descrizione, prezzo);
+      prodotti.add(p);
+      print(p.key);
+    }
+    return prodotti;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<Carrello>(
-        create: (context) => Carrello(), child: Bnb());
+    getAllProdotti(context);
+    return FutureBuilder(
+        future: getAllProdotti(context),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Prodotto> p = snapshot.data as List<Prodotto>;
+            return SafeArea(
+                child: ChangeNotifierProvider<Carrello>(
+                    create: (context) => Carrello(), child: Bnb(p)));
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        });
   }
 }
