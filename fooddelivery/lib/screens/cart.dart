@@ -44,32 +44,37 @@ class Cart extends StatelessWidget {
 class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // This is handled by the search bar itself.
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          ListView.builder(
-            itemBuilder: (BuildContext context, int index) =>
-                ProdottoItem(Carrello.lista[index]),
-            itemCount: Carrello.lista.length,
-          ),
-          Center(
-            child: Lottie.asset('asset/animations/completed.json',
-                animate: true, frameRate: FrameRate(90), width: 300),
-          )
-        ],
-      ),
-      bottomNavigationBar: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: ElevatedButton(
-            onPressed: () {
-              Carrello.getAllOrdini(context);
-            },
-            child: Text('ordine'),
-          )),
-    );
+    if (Carrello.lista.length > 0)
+      return Scaffold(
+        // This is handled by the search bar itself.
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            ListView.builder(
+              itemBuilder: (BuildContext context, int index) =>
+                  ProdottoItem(Carrello.lista[index]),
+              itemCount: Carrello.lista.length,
+            ),
+          ],
+        ),
+        bottomNavigationBar: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {
+                Carrello.getAllOrdini(context);
+              },
+              child: Text('ordine'),
+            )),
+      );
+    else {
+      return Scaffold(
+        body: Center(
+          child: Lottie.asset('asset/animations/empty.json',
+              animate: true, frameRate: FrameRate(90), width: 300),
+        ),
+      );
+    }
   }
 }
 

@@ -2,10 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fooddelivery/interactive/bottomNavigationBar.dart';
 import 'package:fooddelivery/interactive/carrello.dart';
-import 'package:fooddelivery/screens/cart.dart';
 import 'package:fooddelivery/screens/home.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:badges/badges.dart';
 
 class Master extends StatefulWidget {
   const Master({Key key}) : super(key: key);
@@ -58,7 +57,16 @@ class _Master extends State<Master> {
                 child: ChangeNotifierProvider<Carrello>(
                     create: (context) => Carrello(), child: Bnb(p)));
           } else {
-            return Center(child: CircularProgressIndicator());
+            return Scaffold(
+                backgroundColor: Colors.grey,
+                body: Center(
+                  child: Lottie.asset(
+                    'asset/animations/loadingfood.json',
+                    animate: true,
+                    frameRate: FrameRate(90),
+                    width: 300,
+                  ),
+                ));
           }
         });
   }
