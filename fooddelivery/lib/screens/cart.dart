@@ -32,7 +32,9 @@ class Cart extends StatelessWidget {
                         children: [CartScreen(), ShipmentScreen()]),
                   ),
                 ),
-                const TabPageSelector(),
+                const TabPageSelector(
+                  selectedColor: Colors.white,
+                ),
               ],
             ),
           ),
@@ -68,10 +70,15 @@ class CartScreen extends StatelessWidget {
             )),
       );
     else {
-      return Scaffold(
-        body: Center(
-          child: Lottie.asset('asset/animations/empty.json',
-              animate: true, frameRate: FrameRate(90), width: 300),
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Lottie.asset('asset/animations/empty.json',
+                animate: true, frameRate: FrameRate(90), width: 300),
+            Text('Il tuo carrello è vuoto')
+          ],
         ),
       );
     }
