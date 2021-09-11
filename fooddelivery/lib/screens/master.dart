@@ -37,8 +37,8 @@ class _Master extends State<Master> {
       String nome = temp['nome'];
       String descrizione = temp['descrizione'];
       String prezzo = temp['prezzo'];
-      String kay = refProdotti.docs[i].id;
-      Prodotto p = Prodotto(nome, kay, descrizione, prezzo);
+      String key = refProdotti.docs[i].id;
+      Prodotto p = Prodotto(nome, key, descrizione, prezzo);
       prodotti.add(p);
       print(p.key);
     }
@@ -47,7 +47,6 @@ class _Master extends State<Master> {
 
   @override
   Widget build(BuildContext context) {
-    getAllProdotti(context);
     return FutureBuilder(
         future: getAllProdotti(context),
         builder: (context, snapshot) {
