@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fooddelivery/interactive/bottomNavigationBar.dart';
 import 'package:fooddelivery/interactive/carrello.dart';
-import 'package:fooddelivery/screens/home.dart';
+import 'package:fooddelivery/interactive/prodotti.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +29,6 @@ class _Master extends State<Master> {
 
   static Future<List<Prodotto>> getAllProdottiOfCategoria(
       String nome, String id, BuildContext context) async {
-    print("CIAOOO");
     QuerySnapshot refProdotti = await FirebaseFirestore.instance
         .collection("prodotti")
         .doc(id)
@@ -45,7 +44,7 @@ class _Master extends State<Master> {
       String key = refProdotti.docs[i].id;
       Prodotto p = Prodotto(nome, key, descrizione, prezzo);
       prodotti.add(p);
-      print(nome);
+      print(p.key);
     }
     return prodotti;
   }
@@ -93,13 +92,3 @@ class _Master extends State<Master> {
         });
   }
 }
-
-class Categoria extends Tile {
-  final String nome;
-  final String key;
-  final List<Prodotto> prodotti;
-
-  Categoria(this.nome, this.key, this.prodotti);
-}
-
-class Tile {}

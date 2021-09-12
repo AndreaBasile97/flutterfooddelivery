@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fooddelivery/screens/home.dart';
+import 'package:fooddelivery/interactive/prodotti.dart';
 
 class Carrello extends ChangeNotifier {
   static List<Prodotto> lista = [];
@@ -32,7 +32,7 @@ class Carrello extends ChangeNotifier {
   static String printLista() {
     String result = "";
     lista.forEach((element) {
-      result += element.title + " " + element.quantity.toString() + "\n";
+      result += element.nome + " " + element.quantity.toString() + "\n";
     });
     return result;
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fooddelivery/interactive/carrello.dart';
-import 'package:fooddelivery/screens/master.dart';
+import 'package:fooddelivery/interactive/prodotti.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
@@ -23,22 +23,6 @@ class Home extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class Prodotto extends Tile {
-  Prodotto(this.title, this.key, this.description, this.price,
-      [this.children = const <Prodotto>[]]);
-
-  final String key;
-  final String title;
-  final String description;
-  final String price;
-  int quantity = 0;
-  final List<Prodotto> children;
-
-  void setQuantity(bool flag) {
-    flag ? quantity++ : quantity--;
   }
 }
 
@@ -118,7 +102,7 @@ class _CustomTile extends State<CustomTile>
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    widget.prodotto.title,
+                    widget.prodotto.nome,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Text(widget.prodotto.description),
