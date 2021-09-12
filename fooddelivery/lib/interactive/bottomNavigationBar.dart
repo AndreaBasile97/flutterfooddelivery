@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:fooddelivery/interactive/carrello.dart';
 import 'package:fooddelivery/screens/cart.dart';
 import 'package:fooddelivery/screens/home.dart';
+import 'package:fooddelivery/screens/master.dart';
 import 'package:provider/provider.dart';
 
 class Bnb extends StatefulWidget {
-  final List<Prodotto> snapshot;
+  final List<Tile> snapshot;
   const Bnb(this.snapshot, {Key key}) : super(key: key);
 
   @override

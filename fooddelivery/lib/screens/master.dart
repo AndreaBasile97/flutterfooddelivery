@@ -27,9 +27,14 @@ class _Master extends State<Master> {
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  static Future<List<Prodotto>> getAllProdotti(BuildContext context) async {
-    QuerySnapshot refProdotti =
-        await FirebaseFirestore.instance.collection("prodotti").get();
+  static Future<List<Prodotto>> getAllProdottiOfCategoria(
+      String nome, String id, BuildContext context) async {
+    print("CIAOOO");
+    QuerySnapshot refProdotti = await FirebaseFirestore.instance
+        .collection("prodotti")
+        .doc(id)
+        .collection(nome)
+        .get();
     var temp;
     List<Prodotto> prodotti = [];
     for (int i = 0; i < refProdotti.docs.length; i++) {
@@ -40,18 +45,36 @@ class _Master extends State<Master> {
       String key = refProdotti.docs[i].id;
       Prodotto p = Prodotto(nome, key, descrizione, prezzo);
       prodotti.add(p);
-      print(p.key);
+      print(nome);
     }
     return prodotti;
+  }
+
+  static Future<List<Categoria>> getAllCategorie(BuildContext context) async {
+    QuerySnapshot refCategoria =
+        await FirebaseFirestore.instance.collection("prodotti").get();
+    var temp;
+    List<Categoria> categorie = [];
+    for (int i = 0; i < refCategoria.docs.length; i++) {
+      temp = (refCategoria.docs[i].data());
+      String nome = temp['nome'];
+      String key = refCategoria.docs[i].id;
+      List<Prodotto> prodotti =
+          await getAllProdottiOfCategoria(nome, key, context);
+      Categoria c = Categoria(nome, key, prodotti);
+      categorie.add(c);
+      print(c.key);
+    }
+    return categorie;
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getAllProdotti(context),
+        future: getAllCategorie(context),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<Prodotto> p = snapshot.data as List<Prodotto>;
+            List<Tile> p = snapshot.data as List<Tile>;
             return SafeArea(
                 child: ChangeNotifierProvider<Carrello>(
                     create: (context) => Carrello(), child: Bnb(p)));
@@ -70,3 +93,13 @@ class _Master extends State<Master> {
         });
   }
 }
+
+class Categoria extends Tile {
+  final String nome;
+  final String key;
+  final List<Prodotto> prodotti;
+
+  Categoria(this.nome, this.key, this.prodotti);
+}
+
+class Tile {}

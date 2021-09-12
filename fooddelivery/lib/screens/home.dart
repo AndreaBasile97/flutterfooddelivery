@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fooddelivery/interactive/carrello.dart';
+import 'package:fooddelivery/screens/master.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
-  final List<Prodotto> snapshot;
+  final List<Tile> snapshot;
   Home(this.snapshot, {Key key}) : super(key: key);
 
   @override
@@ -25,7 +26,7 @@ class Home extends StatelessWidget {
   }
 }
 
-class Prodotto {
+class Prodotto extends Tile {
   Prodotto(this.title, this.key, this.description, this.price,
       [this.children = const <Prodotto>[]]);
 
@@ -46,15 +47,17 @@ class Prodotto {
 class ProdottoItem extends StatelessWidget {
   const ProdottoItem(this.prodotto);
 
-  final Prodotto prodotto;
+  final Tile prodotto;
 
-  Widget _buildTiles(Prodotto root) {
-    if (root.children.isEmpty) return CustomTile(prodotto: root);
-    return ExpansionTile(
-      key: PageStorageKey<Prodotto>(root),
-      title: Text(root.title),
-      children: root.children.map(_buildTiles).toList(),
-    );
+  Widget _buildTiles(Tile root) {
+    if (root is Prodotto)
+      return CustomTile(prodotto: root);
+    else if (root is Categoria)
+      return ExpansionTile(
+        key: PageStorageKey<Categoria>(root),
+        title: Text(root.nome),
+        children: root.prodotti.map(_buildTiles).toList(),
+      );
   }
 
   @override
