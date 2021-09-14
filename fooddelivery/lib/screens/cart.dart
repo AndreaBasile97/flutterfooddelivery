@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/interactive/addressSelector.dart';
 import 'package:fooddelivery/interactive/carrello.dart';
 import 'package:fooddelivery/screens/home.dart';
 import 'package:lottie/lottie.dart';
@@ -88,6 +89,8 @@ class CartScreen extends StatelessWidget {
 class ShipmentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: AddressSelector(),
+    );
   }
 }
