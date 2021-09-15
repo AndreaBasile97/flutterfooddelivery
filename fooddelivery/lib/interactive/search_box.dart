@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:fooddelivery/interactive/location.dart';
 import 'package:fooddelivery/interactive/picker_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchBox extends StatefulWidget {
   final PickerBloc bloc;
@@ -12,6 +13,19 @@ class SearchBox extends StatefulWidget {
 }
 
 class _SearchBoxState extends State<SearchBox> {
+  SharedPreferences _prefs;
+  String address;
+  static const String addressKey = 'address';
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferences.getInstance().then((prefs) {
+      setState(() => this._prefs = prefs);
+      _loadLastAddress();
+      addresscontroller.text = this.address;
+    });
+  }
+
   final addresscontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -59,10 +73,22 @@ class _SearchBoxState extends State<SearchBox> {
             ),
           );
         },
-        onSuggestionSelected: (Location location) {
+        onSuggestionSelected: (Location location) async {
           addresscontroller.text = location.formattedAddress;
+          await _setAddressPref(location.formattedAddress);
         },
       ),
     );
+  }
+
+  void _loadLastAddress() {
+    setState(() {
+      this.address = this._prefs?.getString(addressKey) ?? null;
+    });
+  }
+
+  Future<void> _setAddressPref(String address) async {
+    await this._prefs?.setString(addressKey, address);
+    _loadLastAddress();
   }
 }
