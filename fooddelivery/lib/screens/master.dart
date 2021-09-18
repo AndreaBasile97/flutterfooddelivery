@@ -49,28 +49,69 @@ class _Master extends State<Master> {
     return prodotti;
   }
 
-  static Future<List<Categoria>> getAllCategorie(BuildContext context) async {
-    QuerySnapshot refCategoria =
-        await FirebaseFirestore.instance.collection("prodotti").get();
+  static Future<List<Tile>> getAllList(BuildContext context, int flag,
+      [String name, String id, String subname, String subid]) async {
+    QuerySnapshot refCategoria;
+    if (flag == 0) {
+      print("ROOT");
+      refCategoria =
+          await FirebaseFirestore.instance.collection("prodotti").get();
+    } else if (flag == 1) {
+      print("nome: " + name + " id: " + id);
+      refCategoria = await FirebaseFirestore.instance
+          .collection("prodotti")
+          .doc(id)
+          .collection(name)
+          .get();
+    } else {
+      refCategoria = await FirebaseFirestore.instance
+          .collection("prodotti")
+          .doc(id)
+          .collection(name)
+          .doc(subid)
+          .collection(subname)
+          .get();
+    }
     var temp;
-    List<Categoria> categorie = [];
+    List<Tile> tile = [];
     for (int i = 0; i < refCategoria.docs.length; i++) {
       temp = (refCategoria.docs[i].data());
-      String nome = temp['nome'];
-      String key = refCategoria.docs[i].id;
-      List<Prodotto> prodotti =
-          await getAllProdottiOfCategoria(nome, key, context);
-      Categoria c = Categoria(nome, key, prodotti);
-      categorie.add(c);
-      print(c.key);
+      if (temp['descrizione'] == null) {
+        String nome = temp['nome'];
+        String key = refCategoria.docs[i].id;
+        print(nome);
+        List<Tile> prodotti;
+        if (flag == 1)
+          prodotti = await getAllList(context, 2, name, id, nome, key);
+        else
+          prodotti = await getAllList(context, 1, nome, key);
+        Categoria c = Categoria(nome, key, prodotti);
+        tile.add(c);
+        print("INSERIMENTO CATREGORIA: " + c.key);
+      }
     }
-    return categorie;
+    //if (flag == 1) print("Immezzo" + name);
+    print(refCategoria.docs.length);
+    for (int i = 0; i < refCategoria.docs.length; i++) {
+      //print(i);
+      temp = (refCategoria.docs[i].data());
+      if (temp['descrizione'] != null) {
+        String nome = temp['nome'];
+        String descrizione = temp['descrizione'];
+        String prezzo = temp['prezzo'];
+        String key = refCategoria.docs[i].id;
+        Prodotto p = Prodotto(nome, key, descrizione, prezzo);
+        tile.add(p);
+        print("INSERIMENTO PRODOTTO: " + p.key);
+      }
+    }
+    return tile;
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getAllCategorie(context),
+        future: getAllList(context, 0),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Tile> p = snapshot.data as List<Tile>;

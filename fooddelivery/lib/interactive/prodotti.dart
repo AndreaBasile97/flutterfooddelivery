@@ -11,7 +11,7 @@ class Prodotto extends Tile {
 }
 
 class Categoria extends Tile {
-  final List<Prodotto> prodotti;
+  final List<Tile> prodotti;
 
   Categoria(nome, key, this.prodotti) : super(nome, key);
 }

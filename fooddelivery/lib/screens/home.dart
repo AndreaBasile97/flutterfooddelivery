@@ -42,6 +42,7 @@ class ProdottoItem extends StatelessWidget {
         title: Text(root.nome),
         children: root.prodotti.map(_buildTiles).toList(),
       );
+    return null;
   }
 
   @override
