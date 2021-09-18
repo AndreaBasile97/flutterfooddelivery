@@ -2,7 +2,7 @@ class Prodotto extends Tile {
   Prodotto(nome, key, this.description, this.price) : super(nome, key);
 
   final String description;
-  final String price;
+  final double price;
   int quantity = 0;
 
   void setQuantity(bool flag) {
