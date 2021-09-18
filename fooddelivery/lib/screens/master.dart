@@ -27,37 +27,13 @@ class _Master extends State<Master> {
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  static Future<List<Prodotto>> getAllProdottiOfCategoria(
-      String nome, String id, BuildContext context) async {
-    QuerySnapshot refProdotti = await FirebaseFirestore.instance
-        .collection("prodotti")
-        .doc(id)
-        .collection(nome)
-        .get();
-    var temp;
-    List<Prodotto> prodotti = [];
-    for (int i = 0; i < refProdotti.docs.length; i++) {
-      temp = (refProdotti.docs[i].data());
-      String nome = temp['nome'];
-      String descrizione = temp['descrizione'];
-      String prezzo = temp['prezzo'];
-      String key = refProdotti.docs[i].id;
-      Prodotto p = Prodotto(nome, key, descrizione, prezzo);
-      prodotti.add(p);
-      print(p.key);
-    }
-    return prodotti;
-  }
-
   static Future<List<Tile>> getAllList(BuildContext context, int flag,
       [String name, String id, String subname, String subid]) async {
     QuerySnapshot refCategoria;
     if (flag == 0) {
-      print("ROOT");
       refCategoria =
           await FirebaseFirestore.instance.collection("prodotti").get();
     } else if (flag == 1) {
-      print("nome: " + name + " id: " + id);
       refCategoria = await FirebaseFirestore.instance
           .collection("prodotti")
           .doc(id)
@@ -79,7 +55,6 @@ class _Master extends State<Master> {
       if (temp['descrizione'] == null) {
         String nome = temp['nome'];
         String key = refCategoria.docs[i].id;
-        print(nome);
         List<Tile> prodotti;
         if (flag == 1)
           prodotti = await getAllList(context, 2, name, id, nome, key);
@@ -90,10 +65,7 @@ class _Master extends State<Master> {
         print("INSERIMENTO CATREGORIA: " + c.key);
       }
     }
-    //if (flag == 1) print("Immezzo" + name);
-    print(refCategoria.docs.length);
     for (int i = 0; i < refCategoria.docs.length; i++) {
-      //print(i);
       temp = (refCategoria.docs[i].data());
       if (temp['descrizione'] != null) {
         String nome = temp['nome'];
