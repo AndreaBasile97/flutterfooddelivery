@@ -70,7 +70,7 @@ class _Master extends State<Master> {
       if (temp['descrizione'] != null) {
         String nome = temp['nome'];
         String descrizione = temp['descrizione'];
-        double prezzo = temp['prezzo'];
+        double prezzo = temp['prezzo'].toDouble();
         String key = refCategoria.docs[i].id;
         Prodotto p = Prodotto(nome, key, descrizione, prezzo);
         tile.add(p);
