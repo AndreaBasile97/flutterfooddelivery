@@ -75,7 +75,7 @@ class CartScreen extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
-                Carrello.getAllOrdini(context);
+                Carrello.ordina();
               },
               child: Text('ordine'),
             )),
