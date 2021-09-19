@@ -107,7 +107,7 @@ class _CustomTile extends State<CustomTile>
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Text(widget.prodotto.description),
-                  Text(widget.prodotto.price.toString())
+                  Text(widget.prodotto.price.toStringAsFixed(2) + " €")
                 ],
               )),
         ),

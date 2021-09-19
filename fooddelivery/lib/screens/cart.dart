@@ -28,9 +28,10 @@ class Cart extends StatelessWidget {
                       size: 128.0,
                       color: Theme.of(context).colorScheme.primary,
                     ),
-                    child: TabBarView(
-                        controller: tabController,
-                        children: [CartScreen(), ShipmentScreen()]),
+                    child: TabBarView(controller: tabController, children: [
+                      CartScreen(),
+                      ShipmentScreen(),
+                    ]),
                   ),
                 ),
                 const TabPageSelector(
@@ -54,11 +55,20 @@ class CartScreen extends StatelessWidget {
         body: Stack(
           fit: StackFit.expand,
           children: [
-            ListView.builder(
-              itemBuilder: (BuildContext context, int index) =>
-                  ProdottoItem(Carrello.lista[index]),
-              itemCount: Carrello.lista.length,
-            ),
+            Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+              Expanded(
+                  flex: 7,
+                  child: ListView.builder(
+                    itemBuilder: (BuildContext context, int index) =>
+                        ProdottoItem(Carrello.lista[index]),
+                    itemCount: Carrello.lista.length,
+                  )),
+              Expanded(
+                  flex: 1,
+                  child: Text("Conto totale: " +
+                      Carrello.conto.toStringAsFixed(2) +
+                      " €"))
+            ]),
           ],
         ),
         bottomNavigationBar: Padding(
