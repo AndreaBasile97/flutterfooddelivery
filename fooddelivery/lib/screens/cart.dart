@@ -4,15 +4,23 @@ import 'package:fooddelivery/interactive/carrello.dart';
 import 'package:fooddelivery/screens/home.dart';
 import 'package:lottie/lottie.dart';
 
-class Cart extends StatelessWidget {
+class Cart extends StatefulWidget {
   const Cart({Key key}) : super(key: key);
+  @override
+  State<Cart> createState() => CartState();
+}
 
-  //static final widgets = <Widget>[CartScreen(), ShipmentScreen()];
+class CartState extends State<Cart> with TickerProviderStateMixin {
+  TabController tabController;
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 2, initialIndex: 0, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
-    TabController tabController;
-
+    print(tabController);
     return DefaultTabController(
         length: 2,
         // Use a Builder here, otherwise DefaultTabController.of(context) below
@@ -29,12 +37,13 @@ class Cart extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                     ),
                     child: TabBarView(controller: tabController, children: [
-                      CartScreen(),
+                      CartScreen(tabController),
                       ShipmentScreen(),
                     ]),
                   ),
                 ),
-                const TabPageSelector(
+                TabPageSelector(
+                  controller: tabController,
                   selectedColor: Colors.white,
                 ),
               ],
@@ -46,6 +55,11 @@ class Cart extends StatelessWidget {
 
 // ignore: must_be_immutable
 class CartScreen extends StatelessWidget {
+  TabController tc;
+  CartScreen(TabController tabController) {
+    this.tc = tabController;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (Carrello.lista.length > 0)
@@ -75,9 +89,9 @@ class CartScreen extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
-                Carrello.ordina();
+                tc.animateTo(1);
               },
-              child: Text('ordine'),
+              child: Text('Procedi con la spedizione'),
             )),
       );
     else {
