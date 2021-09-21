@@ -95,7 +95,7 @@ class _Master extends State<Master> {
                 backgroundColor: Colors.transparent,
                 body: Center(
                   child: Lottie.asset(
-                    'asset/animations/loadingfood.json',
+                    'asset/animations/loading.json',
                     animate: true,
                     frameRate: FrameRate(90),
                     width: 300,
