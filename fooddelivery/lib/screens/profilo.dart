@@ -34,7 +34,7 @@ class Profilo extends StatelessWidget {
                   Text(user != null ? user.email : ""),
                   ElevatedButton(
                       onPressed: () {
-                        _signOut(context);
+                        showAlertDialog(context);
                       },
                       child: Icon(Icons.logout))
                 ],
@@ -43,6 +43,40 @@ class Profilo extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("No"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("Si"),
+      onPressed: () {
+        _signOut(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Logout"),
+      content: Text("Sei sicuro di voler uscire?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 
