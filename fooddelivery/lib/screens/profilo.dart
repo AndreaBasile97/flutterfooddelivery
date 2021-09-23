@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fooddelivery/screens/login_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Profilo extends StatelessWidget {
   const Profilo({Key key}) : super(key: key);
@@ -81,6 +82,8 @@ class Profilo extends StatelessWidget {
   }
 
   Future<void> _signOut(BuildContext context) async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.disconnect();
     await FirebaseAuth.instance.signOut();
     Navigator.push(
       context,

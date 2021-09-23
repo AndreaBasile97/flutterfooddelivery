@@ -83,7 +83,7 @@ class Authentication {
       }
     } else {
       final GoogleSignIn googleSignIn = GoogleSignIn();
-      await googleSignIn.disconnect();
+      // await googleSignIn.disconnect();
       final GoogleSignInAccount googleSignInAccount =
           await googleSignIn.signIn();
 
