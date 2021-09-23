@@ -119,12 +119,17 @@ class Authentication {
   static signInWithFacebook(BuildContext context) async {
     var facebookLogin = FacebookLogin();
     final FacebookLoginResult result = await facebookLogin.logIn(["email"]);
-    if (result.status == FacebookLoginStatus.loggedIn) {
+    if (result.status == FacebookLoginStatus.loggedIn &&
+        FirebaseAuth.instance.currentUser != null) {
       final String token = result.accessToken.token;
       final response = await http.get(Uri.parse(
           'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=$token'));
       final profile = jsonDecode(response.body);
       print(profile);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Master()),
+      );
       return snackBar(
           context, "Accesso eseguito con successo!", Icons.done, Colors.green);
     } else {

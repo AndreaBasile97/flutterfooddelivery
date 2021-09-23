@@ -4,6 +4,7 @@ import 'package:fooddelivery/interactive/carrello.dart';
 import 'package:fooddelivery/interactive/prodotti.dart';
 import 'package:fooddelivery/screens/cart.dart';
 import 'package:fooddelivery/screens/home.dart';
+import 'package:fooddelivery/screens/profilo.dart';
 import 'package:provider/provider.dart';
 
 class Bnb extends StatefulWidget {
@@ -36,10 +37,7 @@ class _Bnb extends State<Bnb> {
         children: <Widget>[
           Home(widget.snapshot),
           Cart(),
-          Text(
-            'Profilo',
-            style: optionStyle,
-          ),
+          Profilo(),
         ],
         index: _selectedIndex,
       ),
