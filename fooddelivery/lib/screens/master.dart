@@ -92,7 +92,7 @@ class _Master extends State<Master> {
                     create: (context) => Carrello(), child: Bnb(p)));
           } else {
             return Scaffold(
-                backgroundColor: Colors.transparent,
+                backgroundColor: Colors.deepOrangeAccent,
                 body: Center(
                   child: Lottie.asset(
                     'asset/animations/loading.json',

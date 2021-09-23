@@ -65,7 +65,7 @@ class _SearchBoxState extends State<SearchBox> {
                   location.name,
                   style: TextStyle(
                     fontSize: 17,
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                 ),
               ),

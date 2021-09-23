@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
           title: 'Brodelivery',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-              primarySwatch: Colors.indigo,
+              accentColor: Colors.orange,
+              primarySwatch: Colors.orange,
               brightness: Brightness.dark,
               fontFamily: 'Quicksand'),
           home: Master());
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
           title: 'Brodelivery',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-              primarySwatch: Colors.indigo,
+              accentColor: Colors.orange,
+              primarySwatch: Colors.orange,
               brightness: Brightness.dark,
               fontFamily: 'Quicksand'),
           home: LoginScreen());
