@@ -7,6 +7,7 @@ class Carrello extends ChangeNotifier {
   static List<Prodotto> lista = [];
   int i = 0;
   static double conto = 0;
+  static String orario = "";
 
   void incrementa(Prodotto p) {
     if (!lista.contains(p)) {
@@ -43,9 +44,13 @@ class Carrello extends ChangeNotifier {
     return result;
   }
 
-  static void ordina() {
+  void ordina() {
     FirebaseFirestore.instance
         .collection('ordinazioni')
-        .add({'ordine': printLista(), 'conto': conto});
+        .add({'ordine': printLista(), 'conto': conto, 'orario': orario});
+  }
+
+  void setOrario(String ora) {
+    orario = ora;
   }
 }

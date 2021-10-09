@@ -4,6 +4,8 @@ import 'package:fooddelivery/interactive/picker_bloc.dart';
 import 'package:fooddelivery/interactive/search_box.dart';
 import 'package:provider/provider.dart';
 
+import 'carrello.dart';
+
 class MapPickerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,15 @@ class MapPickerBody extends StatelessWidget {
             child: Column(
               children: [SearchBox(bloc), PickerTime()],
             ),
-          )
+          ),
+          Padding(
+              padding: EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Provider.of<Carrello>(context, listen: false).ordina();
+                },
+                child: Text('Effettua l\'ordinazione'),
+              ))
         ],
       ),
     );

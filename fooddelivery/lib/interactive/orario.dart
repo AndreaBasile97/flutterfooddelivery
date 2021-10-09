@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/interactive/carrello.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MaterialApp(
-      home: Scaffold(
-        body: SafeArea(child: PickerTime()),
-      ),
-    ));
+// void main() => runApp(MaterialApp(
+//       home: Scaffold(
+//         body: SafeArea(child: PickerTime()),
+//       ),
+//     ));
 
 class PickerTime extends StatefulWidget {
   const PickerTime({Key key}) : super(key: key);
@@ -49,10 +51,17 @@ class _PickerTime extends State<PickerTime> {
     List<String> list = [];
     int x = info.step % 60;
     int y = (info.step / 60).floor();
-    print(x.toString() + "-" + y.toString());
     while (info.fine.hour - hour > 0 || info.fine.minute - minute > 0) {
-      list.add(hour.toString() + ":" + minute.toString());
-      print(hour.toString() + " " + minute.toString());
+      String str = "";
+      if (hour < 10)
+        str = "0" + hour.toString() + ":";
+      else
+        str = hour.toString() + ":";
+      if (minute < 10)
+        str += "0" + minute.toString();
+      else
+        str += minute.toString();
+      list.add(str);
       hour = hour + y;
       minute = minute + x;
       if (minute >= 60) {
@@ -75,6 +84,8 @@ class _PickerTime extends State<PickerTime> {
                 onChanged: (value) {
                   setState(() {
                     this.value = value;
+                    Provider.of<Carrello>(context, listen: false)
+                        .setOrario(value);
                   });
                 },
                 value: value,
