@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fooddelivery/interactive/prodotti.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class Carrello extends ChangeNotifier {
   static List<Prodotto> lista = [];
   int i = 0;
   static double conto = 0;
+
   void incrementa(Prodotto p) {
     if (!lista.contains(p)) {
       lista.add(p);
@@ -42,11 +42,6 @@ class Carrello extends ChangeNotifier {
     });
     return result;
   }
-
-  // static void testCurrentUser() {
-  //   User user = FirebaseAuth.instance.currentUser;
-  //   print(user.uid);
-  // }
 
   static void ordina() {
     FirebaseFirestore.instance
